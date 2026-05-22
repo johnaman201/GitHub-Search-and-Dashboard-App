@@ -1,0 +1,44 @@
+<mat-card class="repo-card">
+    <mat-card-header>
+        <mat-card-title>
+            <a [href]="repo().html_url" target="_blank" rel="noopener">
+                {{ repo().full_name }}
+            </a>
+        </mat-card-title>
+        @if (repo().language) {
+            <mat-chip-set class="langauge-chip">
+                <mat-chip>{{ repo().language }}</mat-chip>
+            </mat-chip-set>
+        }
+    </mat-card-header>
+
+    <mat-card-content>
+        <p class="description">
+            {{ repo().description || 'No description provided.' }}
+        </p>
+
+        <div class="stats">
+            <span matTooltip="Stars">
+                <mat-icon>star</mat-icon> {{ stars() }}
+            </span>
+            <span matTooltip="Forks">
+                <mat-icon>fork_right</mat-icon> {{ forks() }}
+            </span>
+            <span matTooltip="Open Issues">
+                <mat-icon>bug_report</mat-icon> {{ repo().open_issues_count }}
+            </span>
+        </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+        <button
+        mat-flat-button
+        [color]="isAdded() ? 'accent' : 'primary'"
+        [disabled]="isAdded()"
+        (click)="onAdd()"
+        >
+        <mat-icon>{{ isAdded() ? 'check' : 'add' }}</mat-icon>
+        {{ isAdded() ? 'Added' : 'Add to Dashboard' }}
+        </button>
+    </mat-card-actions>
+</mat-card>

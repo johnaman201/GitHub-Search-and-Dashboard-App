@@ -1,0 +1,28 @@
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 16px 0;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.control-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin: 0;
+}
+
+.repo-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}

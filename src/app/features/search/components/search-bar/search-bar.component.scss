@@ -1,0 +1,15 @@
+.search-bar {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .search-input {
+        flex: 1;
+        min-width: 280px;
+    }
+
+    .filter-select {
+        width: 160px;
+    }
+}

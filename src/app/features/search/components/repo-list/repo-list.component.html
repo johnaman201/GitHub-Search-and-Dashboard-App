@@ -1,0 +1,23 @@
+<div class="repo-list">
+    @if (repos().length === 0 && !isLoading()) {
+    <div class="empty-state">
+        <p>Search for GitHub repositories above to get started.</p>
+    </div>
+    }
+
+    <div class="repo-grid">
+        @for (repo of repos(); track trackByRepo($index, repo)) {
+        <app-repo-card [repo]="repo" [isAdded]="isAdded(repo.id)" (add)="addRepo.emit($event)" />
+        }
+    </div>
+
+    @if (isLoading()) {
+    <div class="loading-state">
+        <mat-spinner diameter="48" />
+    </div>
+    }
+
+    @if (hasMore() && !isLoading()) {
+    <div class="scroll-sentinel" appInfiniteScroll (scrolledToEnd)="loadMore.emit()"></div>
+    }
+</div>

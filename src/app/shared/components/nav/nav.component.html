@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="navbar">
+    <div class="nav-brand">
+        <mat-icon>hub</mat-icon>
+        <span class="link-text">GitHub Dashboard</span>
+    </div>
+
+    <!-- Desktop links -->
+    <div class="nav-links desktop-nav">
+        <a mat-button routerLink="/search" routerLinkActive="active-link">
+            <mat-icon>search</mat-icon>
+            <span>Search</span>
+        </a>
+        <a mat-button routerLink="/dashboard" routerLinkActive="active-link">
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+        </a>
+    </div>
+
+    <!-- Mobile burger -->
+    <button mat-icon-button class="burger-menu" [matMenuTriggerFor]="mobileMenu">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #mobileMenu="matMenu">
+        <a mat-menu-item routerLink="/search">
+            <mat-icon>search</mat-icon>
+            <span>Search</span>
+        </a>
+        <a mat-menu-item routerLink="/dashboard">
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+        </a>
+    </mat-menu>
+</mat-toolbar>

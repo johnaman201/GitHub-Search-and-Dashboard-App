@@ -1,0 +1,9 @@
+<div class="chart-container">
+    @if (repos().length === 0) {
+    <div class="empty-chart">
+        <p>No repositories to display.</p>
+    </div>
+    } @else {
+    <div echarts [options]="chartOptions()" class="chart"></div>
+    }
+</div>

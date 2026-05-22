@@ -1,0 +1,49 @@
+<div class="dashboard-page">
+    <div class="dashboard-header">
+        <div class="header-row">
+            <div>
+                <h1>Repository Dashboard</h1>
+                <p class="subtitle">Compare your saved repositories</p>
+            </div>
+            @if (savedRepos().length > 0 && !isLoading()) {
+                <button mat-stroked-button (click)="refresh()">
+                        <mat-icon>refresh</mat-icon>
+                        <span>refresh</span>
+                </button>
+            }
+        </div>
+
+    </div>
+
+    @if (isLoading()) {
+    <div class="loading-state">
+        <p>Loading repository data...</p>
+    </div>
+    } @else if (savedRepos().length === 0) {
+    <div class="empty-state">
+        <p>No repositories saved yet.</p>
+        <p>Go to <a routerLink="/search">Search</a> and add some repositories.</p>
+    </div>
+    } @else {
+    <div class="dashboard-content">
+        <div class="controls-panel">
+            <app-repo-toggle-controls [repos]="repoDetails()" [visibleRepoIds]="visibleRepoIds()"
+                [visibleMetrics]="visibleMetrics()" (repoVisibilityChanged)="onRepoVisibilityChanged($event)"
+                (metricVisibilityChanged)="onMetricVisibilityChanged($event)" />
+        </div>
+
+        <div class="chart-panel">
+            @if (filteredRepos().length === 0 || visibleMetrics().length === 0) {
+            <div class="empty-state">
+                <p>
+                    Select at least one repository and one metric to display the
+                    chart.
+                </p>
+            </div>
+            } @else {
+            <app-metric-bar-chart [repos]="filteredRepos()" [visibleMetrics]="visibleMetrics()" />
+            }
+        </div>
+    </div>
+    }
+</div>

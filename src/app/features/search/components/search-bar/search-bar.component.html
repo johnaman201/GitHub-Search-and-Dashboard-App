@@ -1,0 +1,55 @@
+<div class="search-bar">
+    <mat-form-field 
+        appearance="outline" 
+        class="search-input"
+        >
+        <mat-label>Search repositories</mat-label>
+        <input 
+            matInput 
+            [ngModel]="localQuery()" 
+            (ngModelChange)="onQueryChange($event)"
+            placeholder="e.g. angular, react, vue..." 
+            />
+        @if (localQuery()) {
+        <button 
+            matSuffix 
+            mat-icon-button 
+            (click)="onClear()"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+        } @else {
+        <mat-icon matSuffix>search</mat-icon>
+        }
+    </mat-form-field>
+
+    <mat-form-field 
+        appearance="outline" 
+        class="filter-select"
+    >
+        <mat-label>Sort by</mat-label>
+        <mat-select 
+            [ngModel]="sort()" 
+            (ngModelChange)="onSortChange($event)"
+        >
+            @for (option of sortOptions; track option.value) {
+            <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field 
+        appearance="outline" 
+        class="filter-select"
+    >
+        <mat-label>Order</mat-label>
+        <mat-select 
+            [ngModel]="order()" 
+            (ngModelChange)="onOrderChange($event)"
+        >
+            @for (option of orderOptions; track option.value) {
+            <mat-option [value]="option.value">{{ option.label }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</div>

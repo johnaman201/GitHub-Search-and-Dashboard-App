@@ -1,0 +1,25 @@
+.chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+.chart {
+    min-width: 320px;
+    height: 420px;
+
+    @media (max-width: 426px) {
+        height: 320px;
+    }
+}
+
+.empty-chart {
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 1rem;
+}

@@ -1,0 +1,29 @@
+.repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px 16px;
+    color: #888;
+    font-size: 1rem;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 24px;
+    color: #888;
+}
+
+.scroll-sentinel {
+    height: 40px;
+    width: 100%;
+}

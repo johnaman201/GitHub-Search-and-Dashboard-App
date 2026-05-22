@@ -1,0 +1,24 @@
+<div class="controls">
+    <div class="control-group">
+        <h3 class="control-label">Metrics</h3>
+        <div class="checkbox-group">
+            @for (metric of allMetrics; track metric.value) {
+            <mat-checkbox [checked]="isMetricVisible(metric.value)"
+                (change)="onMetricToggle(metric.value, $event.checked)">
+                {{ metric.label }}
+            </mat-checkbox>
+            }
+        </div>
+    </div>
+
+    <div class="control-group">
+        <h3 class="control-label">Repositories</h3>
+        <div class="checkbox-group">
+            @for (repo of repos(); track repo.id) {
+            <mat-checkbox [checked]="isRepoVisible(repo.id)" (change)="onRepoToggle(repo.id, $event.checked)">
+                {{ repo.name }}
+            </mat-checkbox>
+            }
+        </div>
+    </div>
+</div>
