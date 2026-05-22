@@ -6,11 +6,12 @@ import { GithubApiService, RepoStorageService } from '@core/services';
 import { MetricBarChartComponent } from '@features/dashboard/components/metric-bar-chart/metric-bar-chart.component';
 import { RepoToggleControlsComponent } from '@features/dashboard/components/repo-toggle-controls/repo-toggle-controls.component';
 import { catchError, forkJoin, of } from 'rxjs';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MetricBarChartComponent, RepoToggleControlsComponent, RouterLink, MatIconModule],
+  imports: [MetricBarChartComponent, RepoToggleControlsComponent, RouterLink, MatIconModule, MatButtonModule],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'
 })

@@ -15,7 +15,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             };
 
             snackBar.open(apiError.message, 'Dismiss', {
-                duration: 500,
+                duration: 5000,
                 panelClass: ['error-snackbar'],
                 horizontalPosition: 'end',
                 verticalPosition: 'bottom'
@@ -29,7 +29,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 function resolveErrorMessage(error: HttpErrorResponse): string {
     switch(error.status) {
         case 403:
-            return 'GitHub API rate limit exceed. Please wait a moment and try again.';
+            return 'GitHub API rate limit exceeded. Please wait a moment and try again.';
         case 404:
             return 'Repository not found.';
         case 422:
@@ -37,6 +37,6 @@ function resolveErrorMessage(error: HttpErrorResponse): string {
         case 0:
             return 'Network error. Please check your connection.';
         default:
-            return 'An unexpected error occured. Please try again.';
+            return 'An unexpected error occurred. Please try again.';
     }
 }
