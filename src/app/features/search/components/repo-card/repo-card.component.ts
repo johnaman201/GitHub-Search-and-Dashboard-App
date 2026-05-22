@@ -4,7 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { GithubRepo } from "../../../../core/models/github-repo.model";
+import { GithubRepo } from '@core/models';
+import { formatCount } from '@core/utils';
 
 @Component({
     selector: 'app-repo-card',
@@ -27,28 +28,15 @@ export class RepoCardComponent {
     readonly add = output<GithubRepo>();
 
     readonly stars = computed(() => 
-        this.formatCount(this.repo().stargazers_count)
+        formatCount(this.repo().stargazers_count)
     );
 
     readonly forks = computed(() =>
-        this.formatCount(this.repo().forks_count)
+        formatCount(this.repo().stargazers_count)
     );
 
     onAdd(): void {
         this.add.emit(this.repo());
-    }
-
-    private formatCount(count: number): string {
-        if (count >= 1000) {
-            return `${(count / 1000).toFixed(1)}k`;
-        }
-
-        return count.toString();
-    }
-
-
-
-
-    
+    } 
 
 }

@@ -8,6 +8,7 @@ import { RepoToggleControlsComponent } from '@features/dashboard/components/repo
 import { catchError, forkJoin, of } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { mapToDashboardRepo } from '@core/utils';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -79,20 +80,9 @@ export class DashboardPageComponent implements OnInit {
     forkJoin(requests)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(results => {
-        const details: DashboardRepo[] = results.map((result, index) => {
-          if (!result) return stored[index];
-          return {
-            id: result.id,
-            name: result.name,
-            full_name: result.full_name,
-            url: result.html_url,
-            stars: result.stargazers_count,
-            forks: result.forks_count,
-            open_issues: result.open_issues_count,
-            watchers: result.watchers_count
-          };
-        });
-
+        const details = results.map((result, index) => 
+          result ? mapToDashboardRepo(result) : stored[index]
+        );
         this.repoDetails.set(details);
         this.visibleRepoIds.set(new Set(details.map(r => r.id)));
         this.isLoading.set(false);

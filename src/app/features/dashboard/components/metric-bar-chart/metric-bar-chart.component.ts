@@ -6,6 +6,7 @@ import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/compon
 import { CanvasRenderer } from 'echarts/renderers';
 import { EChartsCoreOption } from 'echarts/core';
 import { DashboardRepo, MetricKey } from '@core/models';
+import { formatCount } from '@core/utils';
 
 echarts.use([BarChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
 
@@ -31,81 +32,73 @@ export class MetricBarChartComponent {
   readonly visibleMetrics = input<MetricKey[]>(['stars', 'forks', 'open_issues', 'watchers']);
 
   readonly chartOptions = computed<EChartsCoreOption>(() => {
-  const repos = this.repos();
-  const metrics = this.visibleMetrics();
+    const repos = this.repos();
+    const metrics = this.visibleMetrics();
 
-  return {
-    tooltip: {
-      trigger: 'item',
-      confine: true,
-      formatter: (
-        params: {
-          seriesName: String; name: String; value: number;
+    return {
+      tooltip: {
+        trigger: 'item',
+        confine: true,
+        formatter: (params: { seriesName: string; name: string; value: number }) => {
+          return `<b>${params.seriesName}</b><br/>${params.name}: ${formatCount(params.value)}`;
         }
-      ) => {
-        const val = params.value >= 1000
-          ? `${(params.value / 1000).toFixed(1)}k`
-          : `${params.value}`;
-          return `<b>${params.seriesName}</b><br/>${params.name}: ${val}`;
-      }
-    },
-    legend: {
-      type: 'scroll',
-      bottom: 0,
-      pageButtonPosition: 'end'
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '20%',
-      top: '5%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: metrics.map(m => METRIC_LABELS[m]),
-      axisLabel: {
-        rotate: 0,
-        fontSize: 11
-      }
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        formatter: (value: number) =>
-          value >= 1000 ? `${(value / 1000).toFixed(0)}k` : `${value}`
-      }
-    },
-    series: repos.map((repo, index) => ({
-      name: repo.name,
-      type: 'bar' as const,
-      data: metrics.map(m => repo[m]),
-      itemStyle: {
-        color: REPO_COLORS[index % REPO_COLORS.length],
-        borderRadius: [4, 4, 0, 0]
-      }
-    })),
-    media: [
-      {
-        query: { maxWidth: 500 },
-        option: {
-          legend: {
-            type: 'scroll',
-            orient: 'horizontal',
-            bottom: 0,
-            itemWidth: 10,
-            itemHeight: 10,
-            textStyle: { fontSize: 10 }
-          },
-          grid: {
-            bottom: '30%'
-          },
-          xAxis: {
-            axisLabel: { fontSize: 10, rotate: 15 }
+      },
+      legend: {
+        type: 'scroll',
+        bottom: 0,
+        pageButtonPosition: 'end'
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '20%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: metrics.map(m => METRIC_LABELS[m]),
+        axisLabel: {
+          rotate: 0,
+          fontSize: 11
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: (value: number) => formatCount(value)
+        }
+      },
+      series: repos.map((repo, index) => ({
+        name: repo.name,
+        type: 'bar' as const,
+        data: metrics.map(m => repo[m]),
+        itemStyle: {
+          color: REPO_COLORS[index % REPO_COLORS.length],
+          borderRadius: [4, 4, 0, 0]
+        }
+      })),
+      media: [
+        {
+          query: { maxWidth: 500 },
+          option: {
+            legend: {
+              type: 'scroll',
+              orient: 'horizontal',
+              bottom: 0,
+              itemWidth: 10,
+              itemHeight: 10,
+              textStyle: { fontSize: 10 }
+            },
+            grid: {
+              bottom: '30%'
+            },
+            xAxis: {
+              axisLabel: { fontSize: 10, rotate: 15 }
+            }
           }
         }
-      }
-    ]
-  };
-});
+      ]
+    };
+  });
 }

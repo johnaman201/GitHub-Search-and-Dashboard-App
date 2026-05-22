@@ -5,6 +5,7 @@ import { GithubApiService, RepoStorageService } from '@core/services';
 import { RepoListComponent } from '@features/search/components/repo-list/repo-list.component';
 import { SearchBarComponent } from '@features/search/components/search-bar/search-bar.component';
 import { catchError, EMPTY, Subject, switchMap } from 'rxjs';
+import { mapToDashboardRepo } from '@core/utils';
 
 @Component({
   selector: 'app-search-page',
@@ -90,17 +91,7 @@ export class SearchPageComponent {
   }
 
   onAddRepo(repo: GithubRepo): void {
-    const dashboardRepo: DashboardRepo = {
-      id: repo.id,
-      name: repo.name,
-      full_name: repo.full_name,
-      url: repo.html_url,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      open_issues: repo.open_issues_count,
-      watchers: repo.watchers_count
-    };
-    this.repoStorage.add(dashboardRepo);
+    this.repoStorage.add(mapToDashboardRepo(repo));
   }
 
   private triggerSearch(): void {
