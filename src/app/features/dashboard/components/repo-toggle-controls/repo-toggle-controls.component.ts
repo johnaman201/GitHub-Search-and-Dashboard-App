@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { DashboardRepo, MetricKey } from '@core/models';
+import { DashboardRepo, MetricKey, METRIC_LABELS  } from '@core/models';
 
 @Component({
   selector: 'app-repo-toggle-controls',
@@ -18,12 +18,10 @@ export class RepoToggleControlsComponent {
   readonly repoVisibilityChanged = output<{ id: number; visible: boolean }>();
   readonly metricVisibilityChanged = output<{ metric: MetricKey; visible: boolean }>();
 
-  readonly allMetrics: { value: MetricKey; label: string }[] = [
-    { value: 'stars', label: 'Stars' },
-    { value: 'forks', label: 'Forks' },
-    { value: 'open_issues', label: 'Open Issues' },
-    { value: 'watchers', label: 'Watchers' }
-  ];
+  readonly allMetrics = (Object.keys(METRIC_LABELS) as MetricKey[]).map(key =>({
+    value: key,
+    label: METRIC_LABELS[key]
+  }))
 
   isRepoVisible(id: number): boolean {
     return this.visibleRepoIds().has(id);

@@ -5,17 +5,11 @@ import { BarChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { EChartsCoreOption } from 'echarts/core';
-import { DashboardRepo, MetricKey } from '@core/models';
+import { DashboardRepo, MetricKey, METRIC_LABELS  } from '@core/models';
 import { formatCount } from '@core/utils';
 
-echarts.use([BarChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
 
-const METRIC_LABELS: Record<MetricKey, string> = {
-  stars: 'Stars',
-  forks: 'Forks',
-  open_issues: 'Open Issues',
-  watchers: 'Watchers'
-};
+echarts.use([BarChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
 
 const REPO_COLORS = ['#3b82f6', '#84cc16', '#334155'];
 

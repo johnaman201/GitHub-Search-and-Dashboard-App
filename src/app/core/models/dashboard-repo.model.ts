@@ -10,3 +10,10 @@ export interface DashboardRepo {
     open_issues: number;
     watchers: number;
 }
+
+export const METRIC_LABELS: Record<MetricKey, string> = {
+    stars: 'Stars',
+    forks: 'Forks',
+    open_issues: 'Open Issues',
+    watchers: 'Watchers'
+}
