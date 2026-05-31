@@ -37,6 +37,9 @@ export class DashboardPageComponent implements OnInit {
   readonly savedRepos = this.repoStorage.repos;
 
   ngOnInit(): void {
+    const stored = this.repoStorage.repos();
+    this.repoDetails.set(stored);
+    this.visibleRepoIds.set(new Set(stored.map(r => r.id)));
     this.loadRepoDetails();
   }
 
